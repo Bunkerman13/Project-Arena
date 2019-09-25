@@ -20,16 +20,15 @@ public class PlayerMovement : MonoBehaviour
         v3_movement = transform.position;
 
         if (Input.GetKey(KeyCode.W))
-            v3_movement.z += .1f;
+            v3_movement += Camera.main.transform.forward.normalized * .1f;
         if (Input.GetKey(KeyCode.A))
-            v3_movement.x -= .1f;
+            v3_movement -= Camera.main.transform.right * .1f;
         if (Input.GetKey(KeyCode.S))
-            v3_movement.z -= .1f;
+            v3_movement -= Camera.main.transform.forward.normalized * .1f;
         if (Input.GetKey(KeyCode.D))
-            v3_movement.x += .1f;
+            v3_movement += Camera.main.transform.right * .1f;
         if (Input.GetKeyDown(KeyCode.Space))
             GetComponent<Rigidbody>().AddForce(v3_jumpForce, ForceMode.Impulse);
-
 
         transform.position = v3_movement;
     }
