@@ -11,7 +11,7 @@ public class CameraMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        f_speed = 10f;
+        f_speed = 100f;
         f_rotationX = 0f;
         f_rotationY = 0f;
         Cursor.lockState = CursorLockMode.Locked;
@@ -20,8 +20,8 @@ public class CameraMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        f_rotationX += Input.GetAxis("Mouse X") * 100f * Time.deltaTime;
-        f_rotationY += Input.GetAxis("Mouse Y") * 100f * Time.deltaTime;
+        f_rotationX += Input.GetAxis("Mouse X") * f_speed * Time.deltaTime;
+        f_rotationY += Input.GetAxis("Mouse Y") * f_speed * Time.deltaTime;
         f_rotationY = Mathf.Clamp(f_rotationY, -45f, 45f);
         Camera.main.transform.localEulerAngles = new Vector3(-f_rotationY, f_rotationX, 0f);
     }
