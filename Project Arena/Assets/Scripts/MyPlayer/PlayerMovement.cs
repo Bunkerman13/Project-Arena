@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Vector3 v3_movement;
+    Vector3 v3_finalMovement;
     Vector3 v3_jumpForce;
     bool b_extraJump;
     bool b_wallClipPrevention;
@@ -24,36 +25,28 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // sets current vector for player position
-        v3_movement = transform.position;
+        v3_finalMovement = transform.position;
 
         // Handle base movemenet commands for player
         if (Input.GetKey(KeyCode.W))
-            v3_movement += Camera.main.transform.forward.normalized * f_speed;
+            v3_movement = Camera.main.transform.forward.normalized * f_speed;
         if (Input.GetKey(KeyCode.A))
-            v3_movement -= Camera.main.transform.right * f_speed;
+            v3_movement = -Camera.main.transform.right * f_speed;
         if (Input.GetKey(KeyCode.S))
-            v3_movement -= Camera.main.transform.forward.normalized * f_speed;
+            v3_movement = -Camera.main.transform.forward.normalized * f_speed;
         if (Input.GetKey(KeyCode.D))
-            v3_movement += Camera.main.transform.right * f_speed;
+            v3_movement = Camera.main.transform.right * f_speed;
         if (Input.GetKeyDown(KeyCode.Space) && b_extraJump)
         { GetComponent<Rigidbody>().AddForce(v3_jumpForce, ForceMode.Impulse); b_extraJump = false; }
 
-        if(b_wallClipPrevention)
-        {
+        //v3_movement = Camera.main.transform.forward.normalized * f_speed;
 
-        }
+        v3_finalMovement += v3_movement;
 
         // Apply new position to current transformation
-        transform.position = v3_movement;
-    }
+        transform.position = v3_finalMovement;
+        //Vector3.Lerp(transform.position, v3_finalMovement, Time.time);
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        b_extraJump = true;
-
-        if (collision.gameObject.tag == "Wall")
-            b_wallClipPrevention = true;
-        else
-            b_wallClipPrevention = false;
+        v3_movement = Vector3.zero;
     }
 }
