@@ -36,8 +36,8 @@ public class PlayerMovement : MonoBehaviour
             v3_movement = -Camera.main.transform.forward.normalized * f_speed;
         if (Input.GetKey(KeyCode.D))
             v3_movement = Camera.main.transform.right * f_speed;
-        if (Input.GetKeyDown(KeyCode.Space) && b_extraJump)
-        { GetComponent<Rigidbody>().AddForce(v3_jumpForce, ForceMode.Impulse); b_extraJump = false; }
+        if (Input.GetKeyDown(KeyCode.Space))
+        { GetComponent<Rigidbody>().AddForce(v3_jumpForce, ForceMode.Impulse); }
 
         //v3_movement = Camera.main.transform.forward.normalized * f_speed;
 
@@ -48,5 +48,11 @@ public class PlayerMovement : MonoBehaviour
         //Vector3.Lerp(transform.position, v3_finalMovement, Time.time);
 
         v3_movement = Vector3.zero;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "Wall")
+            Debug.Log("true");
     }
 }
