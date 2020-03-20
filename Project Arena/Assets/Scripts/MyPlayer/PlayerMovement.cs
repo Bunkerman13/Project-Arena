@@ -7,15 +7,14 @@ public class PlayerMovement : MonoBehaviour
     Vector3 v3_movement;
     Vector3 v3_finalMovement;
     Vector3 v3_jumpForce;
-    float f_speed;
+    public float f_speed;
     int i_jumpCount;
 
     // Start is called before the first frame update
     void Start()
     {
         v3_movement = Vector3.zero;
-        v3_jumpForce = new Vector3(0f, 3f, 0f);
-        f_speed = 10f;
+        v3_jumpForce = new Vector3(0f, 4f, 0f);
         i_jumpCount = 0;
     }
 
@@ -47,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                GetComponent<Rigidbody>().AddForce(v3_jumpForce, ForceMode.Impulse);
+                GetComponent<Rigidbody>().AddForce(v3_finalMovement * 5f + v3_jumpForce, ForceMode.Impulse);
                 i_jumpCount++;
             }
         }

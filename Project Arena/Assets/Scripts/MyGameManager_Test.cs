@@ -8,6 +8,8 @@ namespace ProjectArena
     {
         public List<GameObject> environmentPieces;
         public GameObject arena;
+        public GameObject player;
+        public GameObject sceneCamera;
 
         const float CUBE_DIMENSION = 15f;
         
@@ -15,6 +17,8 @@ namespace ProjectArena
         void Start()
         {
             BuildLevel();
+            Instantiate(player, new Vector3(7.5f, 7.5f, 7.5f), Quaternion.identity);
+            sceneCamera.SetActive(false);
         }
 
         // Update is called once per frame
